@@ -28,24 +28,24 @@ dbutils.fs.ls("/mnt/greathouse1bronze/")
 
 # COMMAND ----------
 
-# UDF read csv and write parquet 
-def read_write(csvFile, csvSchema, DestFile):
-    csvDF = (spark.read
-      .option('header', 'true')
-      .option('sep', ",")
-      .schema(csvSchema)
-      .csv(csvFile)
-    )
-    csvDF = csvDF.distinct().dropna()
-    display(csvDF)
+# # UDF read csv and write parquet 
+# def read_write(csvFile, csvSchema, DestFile):
+#     csvDF = (spark.read
+#       .option('header', 'true')
+#       .option('sep', ",")
+#       .schema(csvSchema)
+#       .csv(csvFile)
+#     )
+#     csvDF = csvDF.distinct().dropna()
+#     display(csvDF)
     
-    (csvDF.write                       # Our DataFrameWriter
-      .option("compression", "snappy") # One of none, snappy, gzip, and lzo
-      .mode("overwrite")               # Replace existing files
-      .parquet(DestFile)               # Write DataFrame to Parquet files
-    )
-    return 1
-read_write_udf = udf(read_write)
+#     (csvDF.write                       # Our DataFrameWriter
+#       .option("compression", "snappy") # One of none, snappy, gzip, and lzo
+#       .mode("overwrite")               # Replace existing files
+#       .parquet(DestFile)               # Write DataFrame to Parquet files
+#     )
+#     return 1
+# read_write_udf = udf(read_write)
 
 # COMMAND ----------
 
